@@ -5,10 +5,10 @@
     xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
     <SolidColorBrush x:Key="BorderBrushFocused" Color="#FF007ACC"/>
-    
+
     <SolidColorBrush x:Key="BorderBrushEnabled" Color="#FF3F3F46"/>
     <SolidColorBrush x:Key="BorderBrushDisables" Color="#505050"/>
-    
+
     <SolidColorBrush x:Key="ForegroundTextEnabled" Color="#FFEEEEEE"/>
     <SolidColorBrush x:Key="ForegroundDisables" Color="#707070"/>
 
@@ -24,13 +24,49 @@
 
     <SolidColorBrush x:Key="BackgroundMotherElement" Color="#FF28282B"/>
 
+    <Style TargetType="{x:Type local:TextBoxIntellisense}">
+        <Setter Property="BorderBrush" Value="ForestGreen"></Setter>
+        <Setter Property="Background" Value="{StaticResource BackgroundButtonEnabled}"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundTextEnabled}"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TextBoxIntellisense}">
+                    <Border  SnapsToDevicePixels="True" Name="PART_Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel Orientation="Horizontal">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                            <StackPanel Orientation="Horizontal">
+                               
+                            </StackPanel>
+                            <Popup  x:Name="PART_Popup" Height="Auto" Width="Auto" MaxHeight="150" MinWidth="100" StaysOpen="False" 
+                                    Placement="Bottom" PlacementTarget="{Binding ElementName=PART_Border}" IsOpen="False" 
+                                    HorizontalAlignment="Left">
+                                <Grid Width="Auto" Height="Auto" Focusable="False">
+                                    <ListBox x:Name="PART_ListBox"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                        SelectedIndex="0" 
+                                        IsTextSearchEnabled="false"/>
+
+                                </Grid>
+                            </Popup>
+                        </StackPanel>
+                    </Border>
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Popup" Property="IsOpen" Value="True"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type Button}" x:Key="MyButtonStyle">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid Background="Transparent">
-                            <ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" />
-                        </Grid>
+                    <Grid Background="Transparent">
+                        <ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" />
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -129,7 +165,7 @@
                             <Setter TargetName="GridBtn"  Property="Background" Value="{StaticResource BorderBrushFocused}"></Setter>
                             <Setter TargetName="PART_Border" Property="BorderBrush" Value="{StaticResource BackgroundFocused}"></Setter>
                         </Trigger>
-                        
+
                         <Trigger Property="IsEnabled" Value="False">
                             <!--<Setter TargetName="PART_Border" Property="BorderBrush" Value="{StaticResource BorderBrushDisables}" />-->
                             <Setter Property="Foreground" Value="{StaticResource ForegroundDisables}" />

@@ -52,6 +52,7 @@
     <Compile Include="ButtonText.cs" />
     <Compile Include="CheckStateRoutedEventArgs.cs" />
     <Compile Include="Radio3LinesText.cs" />
+    <Compile Include="TextBoxIntellisense.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

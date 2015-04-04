@@ -23,18 +23,38 @@ namespace CreateMyControl
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> list = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
-            ButtonTextAndCheck btn = new ButtonTextAndCheck();
-            
-            btn.CheckBoxCheckStateChanged += Part_CheckBox_Click;
-            btn.ButtonClick += btn_ClickButton;
-            btn.TextButton = "asdasdasd";
-            Grid1.Children.Add(btn);
-            string s = qqq.TextButton;
+            list.Add("mother");
+            list.Add("mot");
+            list.Add("moth" );
+            list.Add("mom" );
+            list.Add("other" );
+            list.Add("dother" );
+            list.Add("oth" );
+            list.Add("ther" );
+            list.Add("er" );
+            list.Add("mo" );
+            list.Add("mer" );
+            list.Add("her" );
+            txt.TextChanged += txt_TextChanged;
+            txt.ListData = list;
 
         }
+
+        void txt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            list.Add("dotherasdasdasdasdasdasdasdasdasdasdasdasd");
+
+            TextBoxIntellisense tt = sender as TextBoxIntellisense;
+            if (tt != null)
+            {
+                txtFilterText.Text = tt.Text;
+            }
+        }
+
 
         void btn_ClickButton(object sender, EventArgs e)
         {
@@ -46,10 +66,82 @@ namespace CreateMyControl
             SystemSounds.Beep.Play();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+
+        private void OnMethodsSelectionKeyDown
+                    (object sender, System.Windows.Input.KeyEventArgs e)
         {
-            qqq.IsCheckBoxChecked = false;
+            //switch (e.Key)
+            //{
+            //    case System.Windows.Input.Key.Enter:
+            //        // Hide the Popup
+            //        popupLinqMethods.IsOpen = false;
+
+            //        ListBox lb = sender as ListBox;
+            //        if (lb == null)
+            //            return;
+
+            //        // Get the selected item value
+            //        string methodName = lb.SelectedItem.ToString();
+
+            //        // Save the Caret position
+            //        int i = txtFilterText.CaretIndex;
+
+            //        // Add text to the text
+            //        txtFilterText.Text = txtFilterText.Text.Insert(i, methodName);
+
+            //        // Move the caret to the end of the added text
+            //        txtFilterText.CaretIndex = i + methodName.Length;
+
+            //        // Move focus back to the text box. 
+            //        // This will auto-hide the PopUp due to StaysOpen="false"
+            //        txtFilterText.Focus();
+            //        break;
+
+            //    case System.Windows.Input.Key.Escape:
+            //        // Hide the Popup
+            //        popupLinqMethods.IsOpen = false;
+            //        break;
+            //}
+        }
+
+        private void OnFilterTextKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBox txtBox = sender as TextBox;
+            if ((txtBox == null) || (txtBox.CaretIndex == 0))
+                return;
+
+            // Check for a predefined hot-key
+            if (e.Key != System.Windows.Input.Key.OemPeriod)
+                return;
+
+            // Get the last word in the text (preceding the ".")
+            string txt = txtBox.Text;
+            int wordStart = txt.LastIndexOf(' ', txtBox.CaretIndex - 1);
+            if (wordStart == -1)
+                wordStart = 0;
+
+            string lastWord = txt.Substring(wordStart, txtBox.CaretIndex - wordStart);
+
+            // Check if the last word equal to the one we're waiting
+            if (lastWord.Trim().ToLower() != "item.")
+                return;
+
+            ShowMethodsPopup(txtBox.GetRectFromCharacterIndex(txtBox.CaretIndex, true));
+        }
+
+        private void ShowMethodsPopup(Rect placementRect)
+        {
+            //lstMethodsSelection.SelectedIndex = 0;
+            //lstMethodsSelection.Focus();
+        }
+
+        private void txt1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
     }
+
+
 }
