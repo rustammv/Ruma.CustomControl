@@ -18,6 +18,7 @@
         private ListBox part_ListBox;
         public List<string> ListData { get; set; }
 
+        
         static TextBoxIntellisense()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBoxIntellisense), new FrameworkPropertyMetadata(typeof(TextBoxIntellisense)));
@@ -58,11 +59,14 @@
 
         private TextBlock CreateTextBlockWithBackLight(string text, string textSearch)
         {
+            SolidColorBrush foregroundMain = (SolidColorBrush) (new BrushConverter().ConvertFrom("#FFaaaaaa"));
+            SolidColorBrush foregroundLight = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF007ACC"));
+            SolidColorBrush backgroundMain = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF28282B"));
             string s = text;
             TextBlock textBlock = new TextBlock();
             if (string.IsNullOrEmpty(textSearch))
             {
-                textBlock.Inlines.Add(new Run(s) { Foreground = Brushes.Green });
+                textBlock.Inlines.Add(new Run(s) { Foreground = foregroundMain, Background = backgroundMain});
                 return textBlock;
             }
 
@@ -72,20 +76,20 @@
                 if (i > 0)
                 {
                     string sub = s.Substring(0, i);
-                    textBlock.Inlines.Add(new Run(sub) { Foreground = Brushes.Green });
+                    textBlock.Inlines.Add(new Run(sub) { Foreground = foregroundMain, Background = backgroundMain });
                     s = s.Remove(0, i);
                 }
 
                 if (i == 0)
                 {
                     string sub = s.Substring(0, textSearch.Length);
-                    textBlock.Inlines.Add(new Run(sub) { Foreground = Brushes.Red });
+                    textBlock.Inlines.Add(new Run(sub) { Foreground = foregroundLight, Background = backgroundMain});
                     s = s.Remove(0, textSearch.Length);
                 }
 
                 if (i == -1)
                 {
-                    textBlock.Inlines.Add(new Run(s) { Foreground = Brushes.Green });
+                    textBlock.Inlines.Add(new Run(s) { Foreground = foregroundMain, Background = backgroundMain });
                     s = "";
                 }
 

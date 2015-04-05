@@ -24,8 +24,12 @@
 
     <SolidColorBrush x:Key="BackgroundMotherElement" Color="#FF28282B"/>
 
+    <Style TargetType="{x:Type ListBoxItem}" x:Key="MyListBoxItem">
+        
+    </Style>
+    
     <Style TargetType="{x:Type local:TextBoxIntellisense}">
-        <Setter Property="BorderBrush" Value="ForestGreen"></Setter>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushEnabled}"></Setter>
         <Setter Property="Background" Value="{StaticResource BackgroundButtonEnabled}"></Setter>
         <Setter Property="Foreground" Value="{StaticResource ForegroundTextEnabled}"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
@@ -41,10 +45,14 @@
                             <Popup  x:Name="PART_Popup" Height="Auto" Width="Auto" MaxHeight="150" MinWidth="100" StaysOpen="False" 
                                     Placement="Bottom" PlacementTarget="{Binding ElementName=PART_Border}" IsOpen="False" 
                                     HorizontalAlignment="Left">
-                                <Grid Width="Auto" Height="Auto" Focusable="False">
-                                    <ListBox x:Name="PART_ListBox"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                <Grid Width="Auto" Height="Auto" Focusable="False" Background="{StaticResource BackgroundMotherElement}">
+                                    <ListBox x:Name="PART_ListBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                         SelectedIndex="0" 
-                                        IsTextSearchEnabled="false"/>
+                                        IsTextSearchEnabled="false"
+                                        Background="{StaticResource BackgroundMotherElement}"
+                                             BorderBrush="{StaticResource BorderBrushEnabled}"
+                                                             
+                                             />
 
                                 </Grid>
                             </Popup>
